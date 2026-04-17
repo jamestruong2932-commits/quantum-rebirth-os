@@ -7,7 +7,8 @@
       "Bash(npm install *)",
       "Bash(npm run *)",
       "Bash(ls *)",
-      "Bash(del *)"
+      "Bash(del *)",
+      "WebFetch(domain:i.ibb.co)"
     ]
   }
 }
