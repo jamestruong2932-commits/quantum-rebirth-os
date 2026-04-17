@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const t = require\\('/c/Users/Viethungpc/quantum-web-v2/node_modules/tailwindcss'\\); console.log\\(Object.keys\\(t\\)\\)\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d.get\\('version'\\)\\); print\\(list\\(d.get\\('exports',{}\\).keys\\(\\)\\)[:20]\\)\")",
+      "Bash(node *)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(ls *)",
+      "Bash(del *)"
+    ]
+  }
+}

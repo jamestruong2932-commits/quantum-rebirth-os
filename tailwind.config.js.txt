@@ -1,0 +1,32 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        /* Zero-Point Field — Midnight Navy */
+        'navy':          '#080D1A',
+        'navy-deep':     '#04070F',
+        'navy-mid':      '#0C1222',
+        'navy-surface':  '#111827',
+        'navy-raised':   '#17213A',
+
+        /* Silver Mist — text */
+        'silver':        '#BEC4D0',
+        'silver-bright': '#D8DCE6',
+
+        /* Quantum Teal — accent */
+        'teal-q':        '#00D4C0',
+        'teal-bright':   '#00EDD6',
+      },
+      fontFamily: {
+        serif: ['Playfair Display', 'serif'],
+        sans:  ['Inter', 'sans-serif'],
+      },
+    },
+  },
+  plugins: [],
+}
