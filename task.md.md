@@ -1,13 +1,23 @@
-\*"Tôi cần đấu nối Form thanh toán để nhận được dữ liệu khách hàng. Hãy cập nhật Component `Checkout.jsx` như sau:
+**"YÊU CẦU SỬA LỖI FORM KHÔNG GỬI ĐƯỢC DỮ LIỆU VỀ FORMSPREE:**
 
-1. **Gửi dữ liệu về Formspree:**  
-   * Khi khách nhấn 'XÁC NHẬN ĐƠN HÀNG', hãy sử dụng lệnh `fetch` để gửi `formData` (Tên, Email, SĐT) tới URL: **https://formspree.io/f/xojydjdy**  
-   * Đảm bảo việc gửi dữ liệu diễn ra **TRƯỚC** khi hiển thị mã QR.  
-2. **Xử lý trạng thái (UX):**  
-   * Trong lúc đang gửi (loading), hãy đổi chữ trên nút thành 'ĐANG XỬ LÝ...'.  
-   * Sau khi gửi thành công, mới chuyển sang bước hiện mã QR (`setShowQR(true)`).  
-3. **Lưu trữ cục bộ (Local Storage):**  
-   * Lưu Email và SĐT của khách vào `localStorage` để sau này trang 'Thank You' hoặc trang 'Học' có thể nhận diện được họ ngay lập tức mà không cần bắt họ nhập lại.
+1. **Kiểm tra thuộc tính `name`: Đảm bảo tất cả các thẻ `<input>` trong `Checkout.jsx` đều có thuộc tính `name` tương ứng (ví dụ: `name="full_name"`, `name="email"`, `name="phone"`). Không có `name`, Formspree sẽ bỏ qua dữ liệu.**  
+2. **Sửa logic `handleSubmit`:**  
+   * **Phải sử dụng `async/await` để đảm bảo lệnh `fetch` gửi dữ liệu đi thành công TRƯỚC KHI thực hiện `setShowQR(true)` hoặc chuyển trang.**  
+   * **Thêm `console.log` để kiểm tra phản hồi từ Formspree. Nếu lỗi, phải báo cho người dùng biết thay vì cho qua.**
 
-Hãy viết code xử lý hàm `handleSubmit` thật gọn và chính xác."\*
+**Cấu trúc gửi phải là:**  
+**JavaScript**  
+**const response \= await fetch("LINK\_FORMSPREE\_CUA\_BAN", {**  
+  **method: "POST",**  
+  **body: formData, // Đảm bảo formData đã được chuyển đổi đúng định dạng**  
+  **headers: { 'Accept': 'application/json' }**  
+**});**  
+**if (response.ok) { // Chỉ khi thành công mới đi tiếp**  
+  **setShowQR(true);**  
+**}**
+
+*   
+3. **Validation: Đảm bảo nút 'XÁC NHẬN' sẽ hiện trạng thái 'ĐANG GỬI...' để khách không nhấn liên tục.**
+
+**Hãy viết lại đoạn code xử lý Form này thật chắc chắn và báo cho tôi khi hoàn thành."**
 

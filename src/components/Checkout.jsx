@@ -334,33 +334,38 @@ function CheckoutForm({ onSuccess }) {
     if (Object.keys(errs).length) { setErrors(errs); return }
 
     setLoading(true)
+    setSubmitErr('')
     try {
       const res = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           _subject: `Đơn hàng mới — Quantum Rebirth OS — ${form.name}`,
-          name:  form.name,
-          email: form.email,
-          phone: form.phone,
+          full_name: form.name,
+          email:     form.email,
+          phone:     form.phone,
         }),
       })
-      if (!res.ok) throw new Error('Formspree error')
-    } catch {
-      /* Không chặn luồng — vẫn hiện QR nếu Formspree chưa được cấu hình */
+      console.log('[Formspree] status:', res.status, '| ok:', res.ok)
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        console.error('[Formspree] error data:', data)
+        throw new Error('Gửi thông tin thất bại. Vui lòng thử lại.')
+      }
+      localStorage.setItem('quantum_email', form.email.trim())
+      localStorage.setItem('quantum_phone', form.phone.trim())
+      onSuccess({ name: form.name, email: form.email, phone: form.phone.trim() })
+    } catch (err) {
+      setSubmitErr(err.message || 'Có lỗi xảy ra. Vui lòng thử lại.')
     } finally {
       setLoading(false)
     }
-
-    localStorage.setItem('quantum_email', form.email.trim())
-    localStorage.setItem('quantum_phone', form.phone.trim())
-    onSuccess({ name: form.name, email: form.email, phone: form.phone.trim() })
   }
 
   const fields = [
-    { key: 'name',  label: 'Họ và tên',     type: 'text',  placeholder: 'Nguyễn Văn A' },
-    { key: 'email', label: 'Địa chỉ Email',  type: 'email', placeholder: 'email@example.com' },
-    { key: 'phone', label: 'Số điện thoại',  type: 'tel',   placeholder: '0901 234 567' },
+    { key: 'name',  name: 'full_name', label: 'Họ và tên',    type: 'text',  placeholder: 'Nguyễn Văn A' },
+    { key: 'email', name: 'email',     label: 'Địa chỉ Email', type: 'email', placeholder: 'email@example.com' },
+    { key: 'phone', name: 'phone',     label: 'Số điện thoại', type: 'tel',   placeholder: '0901 234 567' },
   ]
 
   const getBorderColor = (key) => {
@@ -398,7 +403,7 @@ function CheckoutForm({ onSuccess }) {
 
       {/* Fields */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '32px' }}>
-        {fields.map(({ key, label, type, placeholder }) => (
+        {fields.map(({ key, name, label, type, placeholder }) => (
           <div key={key}>
             <label style={{
               display: 'block', fontFamily: '"Inter", sans-serif', fontSize: '11px',
@@ -409,6 +414,7 @@ function CheckoutForm({ onSuccess }) {
             </label>
             <input
               type={type}
+              name={name}
               value={form[key]}
               onChange={set(key)}
               onFocus={() => setFocused(key)}
@@ -437,6 +443,18 @@ function CheckoutForm({ onSuccess }) {
         ))}
       </div>
 
+      {/* Submit error */}
+      {submitErr && (
+        <p style={{
+          fontFamily: '"Inter", sans-serif', fontSize: '13px',
+          color: 'rgba(239,68,68,0.90)', marginBottom: '16px',
+          background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)',
+          borderRadius: '8px', padding: '10px 14px',
+        }}>
+          ⚠ {submitErr}
+        </p>
+      )}
+
       {/* Submit */}
       <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
         <MagneticButton
@@ -444,7 +462,7 @@ function CheckoutForm({ onSuccess }) {
           className="cta-btn-mobile"
           disabled={!isReady || loading}
         >
-          {loading ? 'Đang xử lý...' : 'Xác Nhận Đơn Hàng'}
+          {loading ? 'ĐANG GỬI...' : 'Xác Nhận Đơn Hàng'}
         </MagneticButton>
       </div>
 
