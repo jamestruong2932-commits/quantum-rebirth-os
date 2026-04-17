@@ -60,6 +60,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ══ CTA button mobile responsive ══ */
+@media (max-width: 767px) {
+  .cta-btn-mobile {
+    font-size: 11px !important;
+    letter-spacing: 1px !important;
+    line-height: 1.25 !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    width: 100% !important;
+  }
+}
+
 #root {
   width: 100%;
   min-height: 100svh;

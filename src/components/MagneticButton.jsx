@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
 
-export default function MagneticButton({ children, onClick, variant = 'default' }) {
+export default function MagneticButton({ children, onClick, variant = 'default', className = '', style: styleProp = {} }) {
   const ref = useRef(null)
   const [pos, setPos]       = useState({ x: 0, y: 0 })
   const [hovered, setHovered] = useState(false)
@@ -45,10 +45,12 @@ export default function MagneticButton({ children, onClick, variant = 'default' 
         y: { type: 'spring', stiffness: 180, damping: 18, mass: 0.8 },
         boxShadow: { duration: 0.45, ease: 'easeOut' },
       }}
+      className={className}
       style={{
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
+        textAlign: 'center',
         padding: '17px 48px',
         background: isPrimary
           ? hovered ? '#00EDD6' : '#2DD4BF'
@@ -69,8 +71,9 @@ export default function MagneticButton({ children, onClick, variant = 'default' 
         textTransform: 'uppercase',
         position: 'relative',
         overflow: 'hidden',
+        whiteSpace: 'normal',
         transition: 'background 0.3s ease, border-color 0.3s ease',
-        whiteSpace: 'nowrap',
+        ...styleProp,
       }}
     >
       {/* Inner gloss */}

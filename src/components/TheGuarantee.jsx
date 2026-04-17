@@ -746,7 +746,7 @@ function FinalCTA({ inView }) {
         initial="hidden" animate={inView ? 'visible' : 'hidden'}
         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '18px', marginBottom: '36px' }}
       >
-        <MagneticButton>
+        <MagneticButton className="cta-btn-mobile">
           Tôi Chọn Tái Sinh — Nhận Quyền Truy Cập Ngay
         </MagneticButton>
         <p style={{

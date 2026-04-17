@@ -531,7 +531,7 @@ export default function PricingAndOffer() {
 
         {/* CTA */}
         <div id="cta-main" style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px' }}>
-          <MagneticButton variant="primary">
+          <MagneticButton variant="primary" className="cta-btn-mobile">
             Tôi Gia Nhập Cohort Sáng Lập
           </MagneticButton>
         </div>

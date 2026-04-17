@@ -1,10 +1,17 @@
-\*"Trong component Section 3 (Phần 'Nhận diện' với 5 thẻ: Cái nặng buổi sáng, Vòng lặp...), hãy thực hiện phẫu thuật layout cho bản mobile ngay lập tức:
+**"YÊU CẦU SỬA LỖI TRÀN CHỮ TRÊN NÚT CTA (PRICING SECTION) NGAY LẬP TỨC:**
 
-1. **Bẻ gãy Grid:** Đổi class lưới từ 2 cột thành 1 cột duy nhất trên mobile (`grid-cols-1 md:grid-cols-2`). 5 thẻ này BẮT BUỘC phải xếp chồng lên nhau theo chiều dọc trên điện thoại.  
-2. **Tăng khoảng thở (Gap):** Thêm `gap-8` giữa các thẻ để chúng không dính lẹo vào nhau.  
-3. **Gia cố Padding:** Trong mỗi thẻ, hãy đảm bảo có `p-8` (padding) để văn bản không bao giờ bị chạm sát vào viền kính mờ.  
-4. **Cân đối Typography:** Tiêu đề mỗi thẻ nâng lên `text-xl` hoặc `text-2xl` và in đậm (`font-bold`). Phần số thứ tự (01, 02, 03...) dùng màu Amber (\#D97706) để tạo điểm nhấn sang trọng.  
-5. **Mở rộng Container:** Đảm bảo `max-w-md` cho mỗi thẻ trên mobile để dòng chữ có đủ độ dài, không bị rớt dòng vụn vặt.
+**1\. Tại Component `PricingAndOffer.jsx` (hoặc nơi chứa các nút lớn):**
 
-Hãy thi công chính xác để trả lại vẻ sang trọng cho section này trên điện thoại."\*
+* **Nút 'TÔI CHỌN TÁI SINH...':**  
+  * Trên mobile (dưới `md`): Giảm size chữ xuống `text-[11px]` hoặc `text-xs`.  
+  * Thêm `leading-tight` và `tracking-tighter` để các chữ sít lại một chút một cách tinh tế.  
+  * Thay vì `whitespace-nowrap`, hãy dùng `whitespace-normal` để chữ có thể tự động ngắt dòng nếu cần, hoặc đảm bảo `px-2` để chữ không chạm viền.  
+  * Đảm bảo nút có `w-full` (chiếm hết chiều ngang thẻ cha) nhưng không vượt quá màn hình.
+
+**2\. Nút Teal 'TÔI GIA NHẬP COHORT SÁNG LẬP':**
+
+* Tương tự, giảm size chữ mobile xuống `text-[11px]` hoặc `text-xs`.  
+* Đảm bảo `padding` ngang (`px-4`) đủ để chữ nằm gọn bên trong khối màu Teal.
+
+**3\. Nguyên tắc chung:** Tuyệt đối không để bất kỳ đoạn text nào của nút bấm thò ra ngoài viền của card hay viền của chính nó. Hãy dùng `flex items-center justify-center text-center` cho nội dung bên trong nút."
 
