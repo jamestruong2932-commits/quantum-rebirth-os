@@ -21,7 +21,7 @@ const BANK = {
 }
 
 /* ── Đăng ký tại formspree.io rồi thay YOUR_FORM_ID ── */
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID'
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xojydjdy'
 
 /* ── Validators ── */
 const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())
@@ -352,6 +352,8 @@ function CheckoutForm({ onSuccess }) {
       setLoading(false)
     }
 
+    localStorage.setItem('quantum_email', form.email.trim())
+    localStorage.setItem('quantum_phone', form.phone.trim())
     onSuccess({ name: form.name, email: form.email, phone: form.phone.trim() })
   }
 
