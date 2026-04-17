@@ -165,39 +165,87 @@ export default function ThankYou({ name, email, phone, onBack }) {
           style={{
             background: 'rgba(8,13,26,0.60)',
             border: '1px solid rgba(190,196,208,0.07)',
-            borderLeft: '2px solid rgba(0,212,192,0.30)',
-            borderRadius: '12px',
-            padding: '28px 32px',
+            borderRadius: '16px',
+            padding: 'clamp(24px, 4vw, 36px)',
             marginBottom: '44px',
             textAlign: 'left',
           }}
         >
           <p style={{
             fontFamily: '"Inter", sans-serif', fontSize: '10px', fontWeight: 700,
-            letterSpacing: '3px', color: 'rgba(217,119,6,0.75)', marginBottom: '18px', textTransform: 'uppercase',
+            letterSpacing: '3px', color: 'rgba(217,119,6,0.80)', marginBottom: '24px', textTransform: 'uppercase',
           }}>
             BƯỚC TIẾP THEO
           </p>
-          {[
-            'Kiểm tra hộp thư — email xác nhận đã được gửi tới ' + email,
-            'Dùng Email và SĐT ở trên để đăng nhập vào hệ thống',
-            'Nếu chưa nhận được sau 15 phút, hãy liên hệ qua email hỗ trợ',
-          ].map((step, i) => (
-            <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', marginBottom: i < 2 ? '14px' : 0 }}>
-              <span style={{
-                fontFamily: '"Inter", sans-serif', fontSize: '10px', fontWeight: 700,
-                color: 'rgba(0,212,192,0.60)', flexShrink: 0, marginTop: '3px',
-                width: '18px', height: '18px', borderRadius: '50%',
-                background: 'rgba(0,212,192,0.08)', border: '1px solid rgba(0,212,192,0.20)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}>
-                {i + 1}
-              </span>
-              <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '14px', fontWeight: 300, color: 'rgba(203,213,225,0.75)', lineHeight: 1.7, margin: 0 }}>
-                {step}
+
+          {/* Step 1 */}
+          <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start', marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+            <div style={{
+              flexShrink: 0, width: '36px', height: '36px', borderRadius: '10px',
+              background: 'rgba(0,212,192,0.08)', border: '1px solid rgba(0,212,192,0.20)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px',
+            }}>📧</div>
+            <div>
+              <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '14px', fontWeight: 600, color: '#CBD5E1', margin: '0 0 4px' }}>
+                Kiểm tra email xác nhận
+              </p>
+              <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '13px', fontWeight: 300, color: 'rgba(148,163,184,0.70)', lineHeight: 1.6, margin: 0 }}>
+                Chúng tôi đã gửi xác nhận đến <span style={{ color: '#2DD4BF', fontWeight: 500 }}>{email}</span>. Kiểm tra cả hộp thư Spam nếu không thấy trong Inbox.
               </p>
             </div>
-          ))}
+          </div>
+
+          {/* Step 2 */}
+          <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start', marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+            <div style={{
+              flexShrink: 0, width: '36px', height: '36px', borderRadius: '10px',
+              background: 'rgba(0,212,192,0.08)', border: '1px solid rgba(0,212,192,0.20)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px',
+            }}>🔑</div>
+            <div>
+              <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '14px', fontWeight: 600, color: '#CBD5E1', margin: '0 0 4px' }}>
+                Đăng nhập vào hệ thống
+              </p>
+              <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '13px', fontWeight: 300, color: 'rgba(148,163,184,0.70)', lineHeight: 1.6, margin: '0 0 10px' }}>
+                Sau khi tài khoản được kích hoạt (~15 phút), dùng thông tin ở trên để đăng nhập lần đầu.
+              </p>
+              <div style={{
+                display: 'inline-flex', alignItems: 'center', gap: '6px',
+                background: 'rgba(0,212,192,0.06)', border: '1px solid rgba(0,212,192,0.18)',
+                borderRadius: '8px', padding: '6px 12px',
+              }}>
+                <span style={{ fontFamily: '"Inter", sans-serif', fontSize: '12px', fontWeight: 600, color: 'rgba(0,212,192,0.80)', letterSpacing: '0.5px' }}>
+                  Login: Email + Số điện thoại (mật khẩu)
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Step 3 */}
+          <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+            <div style={{
+              flexShrink: 0, width: '36px', height: '36px', borderRadius: '10px',
+              background: 'rgba(217,119,6,0.08)', border: '1px solid rgba(217,119,6,0.20)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px',
+            }}>💬</div>
+            <div>
+              <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '14px', fontWeight: 600, color: '#CBD5E1', margin: '0 0 4px' }}>
+                Cần hỗ trợ?
+              </p>
+              <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '13px', fontWeight: 300, color: 'rgba(148,163,184,0.70)', lineHeight: 1.6, margin: '0 0 10px' }}>
+                Nếu sau 15 phút vẫn chưa nhận được email hoặc gặp vấn đề đăng nhập, liên hệ ngay:
+              </p>
+              <a href="mailto:jamestruong2932@gmail.com" style={{
+                display: 'inline-flex', alignItems: 'center', gap: '6px',
+                fontFamily: '"Inter", sans-serif', fontSize: '13px', fontWeight: 500,
+                color: 'rgba(217,119,6,0.85)', textDecoration: 'none',
+                background: 'rgba(217,119,6,0.06)', border: '1px solid rgba(217,119,6,0.18)',
+                borderRadius: '8px', padding: '6px 12px',
+              }}>
+                jamestruong2932@gmail.com
+              </a>
+            </div>
+          </div>
         </motion.div>
 
         {/* Closing quote */}
