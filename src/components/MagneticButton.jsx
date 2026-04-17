@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
 
-export default function MagneticButton({ children, onClick, variant = 'default', className = '', style: styleProp = {} }) {
+export default function MagneticButton({ children, onClick, variant = 'default', className = '', style: styleProp = {}, disabled = false }) {
   const ref = useRef(null)
   const [pos, setPos]       = useState({ x: 0, y: 0 })
   const [hovered, setHovered] = useState(false)
@@ -25,10 +25,11 @@ export default function MagneticButton({ children, onClick, variant = 'default',
   return (
     <motion.button
       ref={ref}
-      onClick={onClick}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={handleMouseLeave}
+      onClick={disabled ? undefined : onClick}
+      onMouseMove={disabled ? undefined : handleMouseMove}
+      onMouseEnter={disabled ? undefined : () => setHovered(true)}
+      onMouseLeave={disabled ? undefined : handleMouseLeave}
+      disabled={disabled}
       animate={{
         x: pos.x,
         y: pos.y,
@@ -61,7 +62,8 @@ export default function MagneticButton({ children, onClick, variant = 'default',
           ? '1px solid transparent'
           : `1px solid ${hovered ? 'rgba(0,212,192,0.55)' : 'rgba(0,212,192,0.28)'}`,
         borderRadius: '3px',
-        cursor: 'pointer',
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        opacity: disabled ? 0.45 : 1,
         outline: 'none',
         color: isPrimary ? '#050A10' : '#BEC4D0',
         fontFamily: '"Inter", sans-serif',

@@ -334,7 +334,7 @@ function Bonus3Card({ item, inView, delay }) {
    MAIN EXPORT
 ══════════════════════════════════════════════════════════════ */
 
-export default function PricingAndOffer() {
+export default function PricingAndOffer({ onCheckout }) {
   const ref    = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
@@ -531,7 +531,7 @@ export default function PricingAndOffer() {
 
         {/* CTA */}
         <div id="cta-main" style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px' }}>
-          <MagneticButton variant="primary" className="cta-btn-mobile">
+          <MagneticButton variant="primary" className="cta-btn-mobile" onClick={onCheckout}>
             Tôi Gia Nhập Cohort Sáng Lập
           </MagneticButton>
         </div>

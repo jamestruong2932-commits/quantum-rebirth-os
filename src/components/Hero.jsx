@@ -563,7 +563,7 @@ function MicroHook() {
    HERO — Main section
 ══════════════════════════════════════════════════════════════════ */
 
-export default function Hero() {
+export default function Hero({ onCheckout }) {
   return (
     <>
       {/* Aurora beam canvas — fixed, behind everything */}
@@ -761,7 +761,7 @@ export default function Hero() {
               marginBottom: '88px',
             }}
           >
-            <MagneticButton>
+            <MagneticButton onClick={onCheckout}>
               Tôi Chọn Tái Sinh Ngay Bây Giờ
             </MagneticButton>
             <span

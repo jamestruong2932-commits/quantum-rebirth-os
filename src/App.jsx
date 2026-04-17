@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Hero            from './components/Hero'
 import TheMechanism    from './components/TheMechanism'
 import TheCurriculum   from './components/TheCurriculum'
@@ -5,6 +6,8 @@ import PricingAndOffer from './components/PricingAndOffer'
 import TheGuarantee    from './components/TheGuarantee'
 import InfiniteCards   from './components/InfiniteCards'
 import PhantomNavbar   from './components/PhantomNavbar'
+import Checkout        from './components/Checkout'
+import ThankYou        from './components/ThankYou'
 
 /* ── Value strip items ───────────────────────────────────────── */
 const VALUE_STRIP_TOP = [
@@ -34,13 +37,45 @@ const VALUE_STRIP_BOT = [
 ]
 
 export default function App() {
+  const [page, setPage]       = useState('home')
+  const [orderInfo, setOrderInfo] = useState(null)
+
+  const goCheckout = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    setPage('checkout')
+  }
+  const goHome = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    setPage('home')
+  }
+  const goThankYou = (info) => {
+    setOrderInfo(info)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    setPage('thank-you')
+  }
+
+  if (page === 'checkout') {
+    return <Checkout onBack={goHome} onThankYou={goThankYou} />
+  }
+
+  if (page === 'thank-you') {
+    return (
+      <ThankYou
+        name={orderInfo?.name}
+        email={orderInfo?.email}
+        phone={orderInfo?.phone}
+        onBack={goHome}
+      />
+    )
+  }
+
   return (
     <main style={{ background: '#080D1A', minHeight: '100svh', overflowX: 'hidden' }}>
 
       <PhantomNavbar />
 
       {/* Section 1+2: Hero + VSL + Micro-hook */}
-      <Hero />
+      <Hero onCheckout={goCheckout} />
 
       {/* Sections 3–6: Agitation → Disruption → Prototype → New Mechanism */}
       <div id="mechanism"><TheMechanism /></div>
@@ -64,10 +99,10 @@ export default function App() {
       <div id="curriculum"><TheCurriculum /></div>
 
       {/* Section 8: Value Stack + Pricing */}
-      <div id="pricing"><PricingAndOffer /></div>
+      <div id="pricing"><PricingAndOffer onCheckout={goCheckout} /></div>
 
       {/* Sections 9+10: FAQ · Anti-Guarantee · Final CTA · Footer */}
-      <TheGuarantee />
+      <TheGuarantee onCheckout={goCheckout} />
 
     </main>
   )

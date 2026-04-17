@@ -422,7 +422,7 @@ const INCLUDED_ITEMS = [
   { label: 'Truy Cập', value: 'Trọn đời · Bao gồm mọi cập nhật tương lai' },
 ]
 
-function FinalCTA({ inView }) {
+function FinalCTA({ inView, onCheckout }) {
   return (
     <div style={{
       display: 'flex',
@@ -746,7 +746,7 @@ function FinalCTA({ inView }) {
         initial="hidden" animate={inView ? 'visible' : 'hidden'}
         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '18px', marginBottom: '36px' }}
       >
-        <MagneticButton className="cta-btn-mobile">
+        <MagneticButton className="cta-btn-mobile" onClick={onCheckout}>
           Tôi Chọn Tái Sinh — Nhận Quyền Truy Cập Ngay
         </MagneticButton>
         <p style={{
@@ -867,7 +867,7 @@ function Footer({ inView }) {
    MAIN EXPORT
 ══════════════════════════════════════════════════════════════ */
 
-export default function TheGuarantee() {
+export default function TheGuarantee({ onCheckout }) {
   const faqRef    = useRef(null)
   const faqInView = useInView(faqRef, { once: true, margin: '-80px' })
 
@@ -994,7 +994,7 @@ export default function TheGuarantee() {
           overflow: 'hidden',
         }}
       >
-        <FinalCTA inView={ctaInView} />
+        <FinalCTA inView={ctaInView} onCheckout={onCheckout} />
       </section>
 
       {/* ── FOOTER ── */}

@@ -60,6 +60,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ══ Checkout 2-column responsive grid ══ */
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+}
+@media (min-width: 768px) {
+  .checkout-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 /* ══ CTA button mobile responsive ══ */
 @media (max-width: 767px) {
   .cta-btn-mobile {
