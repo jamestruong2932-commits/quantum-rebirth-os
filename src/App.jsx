@@ -8,6 +8,7 @@ import InfiniteCards   from './components/InfiniteCards'
 import PhantomNavbar   from './components/PhantomNavbar'
 import Checkout        from './components/Checkout'
 import ThankYou        from './components/ThankYou'
+import Legal           from './components/Legal'
 
 /* ── Value strip items ───────────────────────────────────────── */
 const VALUE_STRIP_TOP = [
@@ -52,6 +53,14 @@ export default function App() {
     setOrderInfo(info)
     window.scrollTo({ top: 0, behavior: 'smooth' })
     setPage('thank-you')
+  }
+  const goLegal = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    setPage('legal')
+  }
+
+  if (page === 'legal') {
+    return <Legal onBack={goHome} />
   }
 
   if (page === 'checkout') {
@@ -102,7 +111,7 @@ export default function App() {
       <div id="pricing"><PricingAndOffer onCheckout={goCheckout} /></div>
 
       {/* Sections 9+10: FAQ · Anti-Guarantee · Final CTA · Footer */}
-      <TheGuarantee onCheckout={goCheckout} />
+      <TheGuarantee onCheckout={goCheckout} onLegal={goLegal} />
 
     </main>
   )

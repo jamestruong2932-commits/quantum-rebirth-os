@@ -818,7 +818,23 @@ function FinalCTA({ inView, onCheckout }) {
    FOOTER
 ══════════════════════════════════════════════════════════════ */
 
-function Footer({ inView }) {
+function Footer({ inView, onLegal }) {
+  const linkStyle = {
+    fontFamily: '"Inter", sans-serif',
+    fontSize: '11px',
+    letterSpacing: '1px',
+    color: 'rgba(190,196,208,0.28)',
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    padding: 0,
+    textDecoration: 'none',
+    transition: 'color 0.25s ease',
+  }
+  const handleLegalHover = (e, enter) => {
+    e.currentTarget.style.color = enter ? 'rgba(0,212,192,0.65)' : 'rgba(190,196,208,0.28)'
+  }
+
   return (
     <motion.footer
       variants={fadeUp} custom={0.2}
@@ -839,15 +855,21 @@ function Footer({ inView }) {
       }}>
         © 2026 James Trương · Quantum Rebirth OS
       </p>
-      <p style={{
-        fontFamily: '"Inter", sans-serif',
-        fontSize: '11px',
-        letterSpacing: '1px',
-        color: 'rgba(190,196,208,0.18)',
-        marginBottom: '20px',
-      }}>
-        Chính sách bảo mật · Điều khoản sử dụng · Chính sách hoàn tiền
-      </p>
+      <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+        {['Chính sách bảo mật', 'Điều khoản sử dụng', 'Chính sách hoàn tiền'].map((label, i) => (
+          <span key={label} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+            <button
+              onClick={onLegal}
+              style={linkStyle}
+              onMouseEnter={e => handleLegalHover(e, true)}
+              onMouseLeave={e => handleLegalHover(e, false)}
+            >
+              {label}
+            </button>
+            {i < 2 && <span style={{ color: 'rgba(190,196,208,0.12)', fontSize: '10px' }}>·</span>}
+          </span>
+        ))}
+      </div>
       <p style={{
         fontFamily: '"Inter", sans-serif',
         fontSize: '12px',
@@ -867,7 +889,7 @@ function Footer({ inView }) {
    MAIN EXPORT
 ══════════════════════════════════════════════════════════════ */
 
-export default function TheGuarantee({ onCheckout }) {
+export default function TheGuarantee({ onCheckout, onLegal }) {
   const faqRef    = useRef(null)
   const faqInView = useInView(faqRef, { once: true, margin: '-80px' })
 
@@ -1002,7 +1024,7 @@ export default function TheGuarantee({ onCheckout }) {
         ref={footerRef}
         style={{ padding: '0 24px 64px' }}
       >
-        <Footer inView={footerInView} />
+        <Footer inView={footerInView} onLegal={onLegal} />
       </div>
     </>
   )
