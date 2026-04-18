@@ -12,7 +12,8 @@
       "Bash(python3 -c ' *)",
       "Bash(python3 *)",
       "Bash(python *)",
-      "Bash(powershell *)"
+      "Bash(powershell *)",
+      "Bash(identify public/favicon.png)"
     ]
   }
 }
