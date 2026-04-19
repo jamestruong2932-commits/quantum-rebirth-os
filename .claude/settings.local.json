@@ -13,7 +13,11 @@
       "Bash(python3 *)",
       "Bash(python *)",
       "Bash(powershell *)",
-      "Bash(identify public/favicon.png)"
+      "Bash(identify public/favicon.png)",
+      "Bash(git -C /c/Users/Viethungpc/quantum-web-v2 log --oneline)",
+      "Bash(py --version)",
+      "Bash(where python *)",
+      "Bash(npm --version)"
     ]
   }
 }

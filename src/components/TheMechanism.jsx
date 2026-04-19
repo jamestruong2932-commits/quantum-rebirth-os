@@ -654,7 +654,7 @@ function NewMechanism({ inView }) {
         initial="hidden" animate={inView ? 'visible' : 'hidden'}
         style={{ marginBottom: '64px' }}
       >
-        <p style={blockLabel}>Hiệu Ứng Người Quan Sát — Observer Effect</p>
+        <p style={{ ...blockLabel, fontSize: '14px', color: 'rgba(0,212,192,0.90)' }}>Hiệu Ứng Người Quan Sát — Observer Effect</p>
         <p style={bodyText}>
           Trong vật lý lượng tử, thí nghiệm Double-Slit của{' '}
           <strong style={highlight}>Thomas Young</strong> đã chứng minh một điều không thể tin nổi:
@@ -704,13 +704,151 @@ function NewMechanism({ inView }) {
         </div>
       </motion.div>
 
+      {/* ── 3 Tầng Thay Đổi + RAS ── */}
+      <motion.div
+        variants={fadeUp} custom={0.28}
+        initial="hidden" animate={inView ? 'visible' : 'hidden'}
+        style={{ marginBottom: '64px', width: '100%' }}
+      >
+        {/* Header label */}
+        <p style={{ ...blockLabel, fontSize: '14px', color: 'rgba(0,212,192,0.90)', textAlign: 'center', marginBottom: '32px' }}>
+          TẠI SAO THAY ĐỔI DANH TÍNH PHẢI ĐẾN TRƯỚC — KHÔNG PHẢI SAU
+        </p>
+
+        {/* 3-column tier cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5" style={{ marginBottom: '56px' }}>
+          {/* TẦNG 1 — KẾT QUẢ */}
+          <div style={{
+            ...glass,
+            padding: '32px 28px',
+            border: '1px solid rgba(148,163,184,0.10)',
+          }}>
+            <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '10px', fontWeight: 700, letterSpacing: '3px', color: 'rgba(217,119,6,0.75)', marginBottom: '14px' }}>TẦNG 1</p>
+            <p style={{ fontFamily: '"Playfair Display", serif', fontSize: 'clamp(19px, 1.8vw, 22px)', fontWeight: 600, color: '#D97706', marginBottom: '16px', lineHeight: 1.2 }}>Kết Quả</p>
+            <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '14px', lineHeight: 1.85, color: 'rgba(203,213,225,0.72)', fontWeight: 300, margin: 0 }}>
+              Thay đổi từ bên ngoài — thu nhập, cân nặng, mối quan hệ. Ngắn hạn. Con người tạo ra kết quả đó vẫn còn nguyên. Vài tháng sau, mọi thứ về điểm cũ.
+            </p>
+          </div>
+
+          {/* TẦNG 2 — HÀNH VI */}
+          <div style={{
+            ...glass,
+            padding: '32px 28px',
+            border: '1px solid rgba(148,163,184,0.10)',
+          }}>
+            <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '10px', fontWeight: 700, letterSpacing: '3px', color: 'rgba(217,119,6,0.75)', marginBottom: '14px' }}>TẦNG 2</p>
+            <p style={{ fontFamily: '"Playfair Display", serif', fontSize: 'clamp(19px, 1.8vw, 22px)', fontWeight: 600, color: '#D97706', marginBottom: '16px', lineHeight: 1.2 }}>Hành Vi</p>
+            <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '14px', lineHeight: 1.85, color: 'rgba(203,213,225,0.72)', fontWeight: 300, margin: 0 }}>
+              Thay đổi thói quen, xây kỷ luật, tạo hệ thống. Tốt hơn, nhưng đòi hỏi ý chí liên tục. Mà ý chí là tài nguyên hữu hạn — cạn kiệt vào đúng lúc bạn cần nó nhất.
+            </p>
+          </div>
+
+          {/* TẦNG CỐT LÕI — DANH TÍNH (highlighted) */}
+          <div style={{
+            ...glass,
+            padding: '32px 28px',
+            border: '1px solid rgba(0,212,192,0.28)',
+            boxShadow: '0 0 32px rgba(0,212,192,0.07), 0 8px 48px rgba(0,0,0,0.40)',
+            position: 'relative',
+          }}>
+            <div style={{
+              position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
+              background: 'linear-gradient(90deg, transparent, rgba(0,212,192,0.55), transparent)',
+              borderRadius: '12px 12px 0 0',
+            }} />
+            <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '10px', fontWeight: 700, letterSpacing: '3px', color: 'rgba(0,212,192,0.85)', marginBottom: '14px' }}>TẦNG CỐT LÕI</p>
+            <p style={{ fontFamily: '"Playfair Display", serif', fontSize: 'clamp(19px, 1.8vw, 22px)', fontWeight: 600, color: '#2DD4BF', marginBottom: '16px', lineHeight: 1.2, textShadow: '0 0 20px rgba(0,212,192,0.28)' }}>Danh Tính</p>
+            <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '14px', lineHeight: 1.85, color: 'rgba(203,213,225,0.82)', fontWeight: 300, margin: 0 }}>
+              Thay đổi người bạn <em>là</em> — ở tầng sóng não, tầng tế bào, tầng cảm xúc. Khi bạn là người khác, hành động đúng không cần kỷ luật. Nó trở thành bản năng.
+            </p>
+          </div>
+        </div>
+
+        {/* RAS typography block */}
+        <div style={{
+          ...glass,
+          padding: '48px 52px',
+          marginBottom: '40px',
+          borderLeft: '2px solid rgba(0,212,192,0.22)',
+        }}>
+          <p style={{ ...blockLabel, color: 'rgba(0,212,192,0.80)', marginBottom: '28px' }}>HỆ THỐNG KÍCH HOẠT LƯỚI — RAS</p>
+
+          {/* Large number contrast */}
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '20px', marginBottom: '28px', flexWrap: 'wrap' }}>
+            <span style={{
+              fontFamily: '"Playfair Display", serif',
+              fontSize: 'clamp(44px, 6vw, 76px)',
+              fontWeight: 700,
+              color: '#D8DCE6',
+              lineHeight: 1,
+              letterSpacing: '-0.03em',
+            }}>11 Triệu Bit</span>
+            <span style={{
+              fontFamily: '"Inter", sans-serif',
+              fontSize: 'clamp(13px, 1.2vw, 15px)',
+              color: 'rgba(148,163,184,0.45)',
+              fontWeight: 300,
+            }}>vs</span>
+            <span style={{
+              fontFamily: '"Playfair Display", serif',
+              fontSize: 'clamp(34px, 4.5vw, 58px)',
+              fontWeight: 700,
+              color: '#00D4C0',
+              lineHeight: 1,
+              letterSpacing: '-0.03em',
+              textShadow: '0 0 28px rgba(0,212,192,0.35)',
+            }}>50 Bit</span>
+          </div>
+
+          <p style={{ ...bodyText, marginBottom: '16px' }}>
+            Mỗi giây, não bộ nhận vào khoảng{' '}
+            <strong style={highlight}>11 triệu bit thông tin</strong>{' '}
+            từ môi trường xung quanh. Nhưng ý thức của bạn chỉ có thể xử lý khoảng{' '}
+            <strong style={{ ...highlight, color: '#00D4C0' }}>50 bit</strong>{' '}
+            trong số đó.
+          </p>
+          <p style={{ ...bodyText, marginBottom: '16px' }}>
+            <strong style={highlight}>RAS quyết định 50 bit nào được đi qua.</strong>{' '}
+            Và tiêu chí duy nhất mà RAS dùng để lọc — là{' '}
+            <strong style={{ ...highlight, color: '#2DD4BF' }}>danh tính của bạn</strong>.
+          </p>
+          <p style={bodyText}>
+            Nếu danh tính của bạn là <em>"người đang cố gắng thành công"</em> — RAS sẽ liên tục lọc vào tầm nhìn của bạn những bằng chứng rằng thành công vẫn còn ở phía trước. Những cơ hội dành cho <em>"người đã thành công"</em> tồn tại xung quanh bạn — nhưng bộ lọc không cho chúng đi qua. Bạn nhìn mà không thấy.
+          </p>
+        </div>
+
+        {/* Centered blockquote */}
+        <div style={{
+          background: 'rgba(8,13,26,0.55)',
+          border: '1px solid rgba(0,212,192,0.10)',
+          borderRadius: '16px',
+          padding: '48px 52px',
+          textAlign: 'center',
+        }}>
+          <p style={{
+            fontFamily: '"Playfair Display", serif',
+            fontSize: 'clamp(17px, 2vw, 24px)',
+            fontStyle: 'italic',
+            fontWeight: 400,
+            lineHeight: 1.7,
+            color: 'rgba(216,220,230,0.82)',
+            margin: 0,
+          }}>
+            "Bạn không thể nhận được những gì bạn muốn —
+            <br />
+            bạn chỉ có thể nhận được những gì{' '}
+            <em style={{ color: '#00D4C0', fontStyle: 'normal', fontWeight: 500 }}>là chính bạn.</em>"
+          </p>
+        </div>
+      </motion.div>
+
       {/* HeartMath science */}
       <motion.div
         variants={fadeUp} custom={0.3}
         initial="hidden" animate={inView ? 'visible' : 'hidden'}
         style={{ marginBottom: '64px' }}
       >
-        <p style={blockLabel}>Heart-Brain Coherence — Tại sao "suy nghĩ tích cực" một mình không đủ</p>
+        <p style={{ ...blockLabel, fontSize: '14px', color: 'rgba(0,212,192,0.90)' }}>Heart-Brain Coherence — Tại sao "suy nghĩ tích cực" một mình không đủ</p>
         <p style={bodyText}>
           Tuy nhiên, bạn không thể thay đổi nhân dạng chỉ bằng suy nghĩ. Vì suy nghĩ phát xuất từ não bộ. Nhưng não bộ không phải là nơi duy nhất lưu trữ nhân dạng của bạn.{' '}
           <strong style={highlight}>Cơ thể bạn mới là nơi lưu trữ nó.</strong>

@@ -319,6 +319,89 @@ function ExtraFaq({ item, isOpen, onToggle, inView, delay }) {
 }
 
 /* ══════════════════════════════════════════════════════════════
+   4 TẦNG KHOA HỌC TÁI SINH DATA + CARD
+══════════════════════════════════════════════════════════════ */
+
+const SCIENCE_TIERS = [
+  {
+    tag: 'Vật Lý Lượng Tử',
+    title: 'Observer Effect',
+    body: 'Trạng thái của Người Quan Sát ảnh hưởng trực tiếp đến kết quả của thí nghiệm. Ý thức không chỉ ghi nhận thực tại — nó tham gia vào việc tạo ra nó.',
+    accent: '#00D4C0',
+    rgb: '0,212,192',
+  },
+  {
+    tag: 'Dr. Bruce Lipton',
+    title: 'Epigenetics',
+    body: 'Môi trường và cảm xúc của bạn không chỉ phản ánh gen — chúng bật tắt gen. Bạn không bị giam cầm trong DNA mình thừa hưởng.',
+    accent: '#D97706',
+    rgb: '217,119,6',
+  },
+  {
+    tag: 'Dr. Richard Davidson',
+    title: 'Neuroplasticity',
+    body: 'Thiền định không chỉ thay đổi trạng thái tâm lý — nó thay đổi cấu trúc vật lý của não bộ. Không có gì là cố định.',
+    accent: '#00D4C0',
+    rgb: '0,212,192',
+  },
+  {
+    tag: 'HeartMath Institute',
+    title: 'HeartMath',
+    body: 'Trái tim phát ra từ trường điện từ đo được từ vài mét bên ngoài cơ thể. Khi tim-não đồng bộ, chất lượng của mọi quyết định và hành động đều thay đổi.',
+    accent: '#D97706',
+    rgb: '217,119,6',
+  },
+]
+
+function ScienceTierCard({ tier }) {
+  return (
+    <motion.div
+      whileHover={{
+        y: -2,
+        boxShadow: `0 0 0 1px rgba(${tier.rgb},0.35), 0 0 28px rgba(${tier.rgb},0.10), 0 12px 56px rgba(0,0,0,0.50)`,
+      }}
+      transition={{ duration: 0.25 }}
+      style={{
+        ...glass,
+        padding: '32px 28px',
+        cursor: 'default',
+      }}
+    >
+      <p style={{
+        fontFamily: '"Inter", sans-serif',
+        fontSize: '10px',
+        fontWeight: 600,
+        letterSpacing: '3px',
+        color: `rgba(${tier.rgb},0.60)`,
+        marginBottom: '12px',
+      }}>
+        {tier.tag}
+      </p>
+      <p style={{
+        fontFamily: '"Playfair Display", serif',
+        fontSize: 'clamp(20px, 1.8vw, 23px)',
+        fontWeight: 600,
+        color: '#D8DCE6',
+        marginBottom: '14px',
+        lineHeight: 1.2,
+      }}>
+        {tier.title}
+      </p>
+      <p style={{
+        fontFamily: '"Inter", sans-serif',
+        fontSize: '15px',
+        lineHeight: 1.85,
+        color: 'rgba(203,213,225,0.78)',
+        fontWeight: 300,
+        margin: 0,
+      }}>
+        {tier.body}
+      </p>
+    </motion.div>
+  )
+}
+
+/* ══════════════════════════════════════════════════════════════
    ANTI-GUARANTEE BLOCK
 ══════════════════════════════════════════════════════════════ */
 
@@ -690,6 +773,147 @@ function FinalCTA({ inView, onCheckout }) {
               </span>
             </div>
           ))}
+        </div>
+      </motion.div>
+
+      {/* 4 Tầng Khoa Học Tái Sinh */}
+      <motion.div
+        variants={fadeUp} custom={0.50}
+        initial="hidden" animate={inView ? 'visible' : 'hidden'}
+        style={{ width: '100%', marginBottom: '52px' }}
+      >
+        {/* Lead-in: Đông / Tây hội tụ */}
+        <p style={{
+          fontFamily: '"Inter", sans-serif',
+          fontSize: 'clamp(15px, 1.4vw, 17px)',
+          lineHeight: 2.0,
+          color: 'rgba(203,213,225,0.72)',
+          fontWeight: 300,
+          marginBottom: '16px',
+        }}>
+          Hàng ngàn năm, các thiền sư phương Đông đã nói rằng ý thức tạo ra thực tại. Rằng thế giới bên ngoài là sự phản chiếu của thế giới bên trong.
+        </p>
+        <p style={{
+          fontFamily: '"Inter", sans-serif',
+          fontSize: 'clamp(15px, 1.4vw, 17px)',
+          lineHeight: 2.0,
+          color: 'rgba(203,213,225,0.72)',
+          fontWeight: 300,
+          marginBottom: '32px',
+        }}>
+          Khoa học cổ điển — cơ học Newton — gọi đó là mê tín. Hai dòng chảy song song nhau qua lịch sử, không bao giờ gặp nhau.
+        </p>
+
+        {/* Dramatic moment */}
+        <p style={{
+          fontFamily: '"Playfair Display", serif',
+          fontSize: 'clamp(22px, 2.4vw, 30px)',
+          fontWeight: 600,
+          color: '#D8DCE6',
+          letterSpacing: '-0.01em',
+          marginBottom: '32px',
+          lineHeight: 1.3,
+        }}>
+          Cho đến bây giờ.
+        </p>
+
+        <p style={{
+          fontFamily: '"Inter", sans-serif',
+          fontSize: 'clamp(15px, 1.4vw, 17px)',
+          lineHeight: 2.0,
+          color: 'rgba(203,213,225,0.72)',
+          fontWeight: 300,
+          marginBottom: '40px',
+        }}>
+          Lần đầu tiên trong lịch sử nhân loại, khoa học hiện đại đang xác nhận những gì người xưa đã biết — chỉ bằng ngôn ngữ khác:
+        </p>
+
+        {/* 4 science cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5" style={{ marginBottom: '48px' }}>
+          {SCIENCE_TIERS.map((tier, i) => (
+            <ScienceTierCard key={i} tier={tier} />
+          ))}
+        </div>
+
+        {/* Synthesis */}
+        <p style={{
+          fontFamily: '"Playfair Display", serif',
+          fontSize: 'clamp(16px, 1.6vw, 20px)',
+          fontWeight: 500,
+          lineHeight: 1.75,
+          color: '#D8DCE6',
+          marginBottom: '24px',
+          textAlign: 'center',
+        }}>
+          Bốn nhánh khoa học độc lập. Bốn ngôn ngữ nghiên cứu khác nhau. Cùng nói về một sự thật.
+        </p>
+
+        <p style={{
+          fontFamily: '"Inter", sans-serif',
+          fontSize: 'clamp(15px, 1.4vw, 17px)',
+          lineHeight: 2.0,
+          color: 'rgba(203,213,225,0.72)',
+          fontWeight: 300,
+          marginBottom: '20px',
+        }}>
+          Chúng ta đang đứng ở{' '}
+          <strong style={{ fontWeight: 600, color: '#D8DCE6' }}>điểm hội tụ của một làn sóng nhận thức</strong>{' '}
+          — thời điểm mà khoa học và trí tuệ cổ xưa gặp nhau sau hàng ngàn năm.
+        </p>
+
+        <p style={{
+          fontFamily: '"Inter", sans-serif',
+          fontSize: 'clamp(15px, 1.4vw, 17px)',
+          lineHeight: 2.0,
+          color: 'rgba(203,213,225,0.72)',
+          fontWeight: 300,
+          marginBottom: '20px',
+        }}>
+          Những người hiểu nguyên lý này hôm nay sẽ vận hành cuộc đời từ một tầng hoàn toàn khác. Không phải vì họ may mắn hơn, tài năng hơn, hay có xuất phát điểm tốt hơn — mà vì họ đang dùng đúng hệ điều hành trong khi phần còn lại của thế giới vẫn đang chạy công thức cũ: làm nhiều hơn, gồng mình hơn, kiệt sức hơn, và tự hỏi tại sao kết quả không xứng với nỗ lực.
+        </p>
+
+        <p style={{
+          fontFamily: '"Inter", sans-serif',
+          fontSize: 'clamp(15px, 1.4vw, 17px)',
+          lineHeight: 2.0,
+          color: 'rgba(203,213,225,0.72)',
+          fontWeight: 300,
+          marginBottom: '32px',
+        }}>
+          Cuộc sống — dù muốn hay không — sẽ phải đi theo khoa học. Không phải ngược lại.
+        </p>
+
+        {/* Framing question */}
+        <div style={{
+          borderTop: '1px solid rgba(0,212,192,0.10)',
+          paddingTop: '32px',
+          textAlign: 'center',
+        }}>
+          <p style={{
+            fontFamily: '"Inter", sans-serif',
+            fontSize: 'clamp(14px, 1.3vw, 16px)',
+            lineHeight: 2.0,
+            color: 'rgba(203,213,225,0.55)',
+            fontWeight: 300,
+            marginBottom: '10px',
+            letterSpacing: '0.2px',
+          }}>
+            Câu hỏi không phải là <em>liệu</em> sự dịch chuyển này có xảy ra không.
+          </p>
+          <p style={{
+            fontFamily: '"Inter", sans-serif',
+            fontSize: 'clamp(14px, 1.3vw, 16px)',
+            lineHeight: 2.0,
+            color: 'rgba(203,213,225,0.55)',
+            fontWeight: 300,
+            margin: 0,
+            letterSpacing: '0.5px',
+          }}>
+            Câu hỏi là:{' '}
+            <strong style={{ fontWeight: 600, color: '#D8DCE6' }}>
+              bạn đang ở bên nào của nó — và bạn chọn bên nào từ hôm nay.
+            </strong>
+          </p>
         </div>
       </motion.div>
 
