@@ -552,7 +552,7 @@ function MicroHook() {
             textShadow:     '0 0 28px rgba(0,212,192,0.18)',
           }}
         >
-          tại sao mọi thứ bạn đã thử đều không thể làm thay đổi gì cả — chừng nào bạn vẫn còn là con người cũ.
+          Tôi sẽ chỉ ra cho bạn thấy tại sao mọi thứ bạn đã thử đều không thể làm thay đổi gì cả — chừng nào bạn vẫn còn là con người cũ.
         </TextReveal>
       </motion.div>
     </div>
