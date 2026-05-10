@@ -539,7 +539,7 @@ function Prototype({ inView }) {
           lineHeight: 1.4,
           margin: 0,
         }}>
-          Đơn hàng 17 triệu xuất hiện. Không phải vì tôi làm thêm gì —{' '}
+          Đơn hàng 27 triệu xuất hiện. Không phải vì tôi làm thêm gì —{' '}
           <em style={{ color: '#00D4C0' }}>
             mà vì tôi đã là người khác khi gửi đi tin nhắn đó.
           </em>

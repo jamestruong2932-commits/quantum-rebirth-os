@@ -18,7 +18,11 @@
       "Bash(py --version)",
       "Bash(where python *)",
       "Bash(npm --version)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "mcp__claude_ai_Vercel__deploy_to_vercel",
+      "Bash(vercel deploy *)"
     ]
   }
 }
