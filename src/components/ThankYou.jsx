@@ -21,8 +21,7 @@ export default function ThankYou({ name, email, phone, onBack }) {
   }, [])
 
   const credentials = [
-    { label: 'Tài khoản (Email đăng nhập)', value: email, highlight: true },
-    { label: 'Mật khẩu (Số điện thoại)',    value: phone, highlight: true, mono: true },
+    { label: 'Email đăng nhập', value: email, highlight: true },
   ]
 
   return (
@@ -119,7 +118,7 @@ export default function ThankYou({ name, email, phone, onBack }) {
             fontFamily: '"Inter", sans-serif', fontSize: '10px', fontWeight: 700,
             letterSpacing: '3px', color: 'rgba(0,212,192,0.65)', marginBottom: '24px', textTransform: 'uppercase',
           }}>
-            THÔNG TIN TÀI KHOẢN CỦA BẠN
+            ĐƠN HÀNG ĐÃ ĐƯỢC GHI NHẬN
           </p>
 
           {credentials.map(({ label, value, highlight, mono }) => (
@@ -154,7 +153,7 @@ export default function ThankYou({ name, email, phone, onBack }) {
               fontFamily: '"Inter", sans-serif', fontSize: '13px',
               color: 'rgba(0,212,192,0.70)', fontWeight: 400, margin: 0,
             }}>
-              Đang kích hoạt tài khoản{dots} &nbsp;·&nbsp; Hoàn tất trong ~15 phút
+              Đang chờ xác nhận thanh toán{dots} &nbsp;·&nbsp; Mật khẩu sẽ gửi qua email
             </p>
           </div>
         </motion.div>
@@ -215,7 +214,7 @@ export default function ThankYou({ name, email, phone, onBack }) {
                 borderRadius: '8px', padding: '6px 12px',
               }}>
                 <span style={{ fontFamily: '"Inter", sans-serif', fontSize: '12px', fontWeight: 600, color: 'rgba(0,212,192,0.80)', letterSpacing: '0.5px' }}>
-                  Login: Email + Số điện thoại (mật khẩu)
+                  Login: Email + Mật khẩu trong email
                 </span>
               </div>
             </div>

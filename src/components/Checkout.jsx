@@ -13,15 +13,12 @@ const fadeUp = {
 }
 
 const BANK = {
-  bin:    'TCB',
-  name:   'Techcombank',
-  number: '2903888888',
+  bin:    'MB',
+  name:   'MB Bank',
+  number: '3329032000',
   owner:  'TRUONG CHIEN PHUOC',
   amount: 1790000,
 }
-
-/* ── Đăng ký tại formspree.io rồi thay YOUR_FORM_ID ── */
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xojydjdy'
 
 /* ── Validators ── */
 const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())
@@ -88,7 +85,7 @@ function ProductMockup() {
         <div style={{
           width: '40px', height: '1px',
           background: 'linear-gradient(90deg, transparent, rgba(0,212,192,0.40), transparent)',
-          margin: '0 auto 28px',
+          margin: '0 0 28px',
         }} />
 
         {['7 Module · 21 Ngày Thực Chiến', 'Sổ tay Kiểm toán Lịch sử',
@@ -126,8 +123,8 @@ function ProductMockup() {
    PAYMENT MODAL
 ══════════════════════════════════════════════════════════════ */
 
-function PaymentModal({ phone, onClose, onConfirmPaid }) {
-  const transferContent = `QUANTUM ${phone}`
+function PaymentModal({ orderCode, onClose, onConfirmPaid }) {
+  const transferContent = orderCode
   const qrUrl = `https://img.vietqr.io/image/${BANK.bin}-${BANK.number}-compact2.png?amount=${BANK.amount}&addInfo=${encodeURIComponent(transferContent)}&accountName=${encodeURIComponent(BANK.owner)}`
 
   return (
@@ -336,25 +333,14 @@ function CheckoutForm({ onSuccess }) {
     setLoading(true)
     setSubmitErr('')
     try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
+      const res = await fetch('/api/create-order', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          _subject: `Đơn hàng mới — Quantum Rebirth OS — ${form.name}`,
-          full_name: form.name,
-          email:     form.email,
-          phone:     form.phone,
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: form.name, email: form.email, phone: form.phone.trim() }),
       })
-      console.log('[Formspree] status:', res.status, '| ok:', res.ok)
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}))
-        console.error('[Formspree] error data:', data)
-        throw new Error('Gửi thông tin thất bại. Vui lòng thử lại.')
-      }
-      localStorage.setItem('quantum_email', form.email.trim())
-      localStorage.setItem('quantum_phone', form.phone.trim())
-      onSuccess({ name: form.name, email: form.email, phone: form.phone.trim() })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Gửi thông tin thất bại. Vui lòng thử lại.')
+      onSuccess({ name: form.name, email: form.email, phone: form.phone.trim(), order_code: data.order_code })
     } catch (err) {
       setSubmitErr(err.message || 'Có lỗi xảy ra. Vui lòng thử lại.')
     } finally {
@@ -590,7 +576,7 @@ export default function Checkout({ onBack, onThankYou }) {
       <AnimatePresence>
         {showModal && orderInfo && (
           <PaymentModal
-            phone={orderInfo.phone}
+            orderCode={orderInfo.order_code}
             onClose={() => setShowModal(false)}
             onConfirmPaid={handleConfirmPaid}
           />
