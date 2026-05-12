@@ -21,7 +21,7 @@ export default async function handler(req, res) {
   const order_code = `QT-${Date.now()}`
 
   const { error } = await supabase.from('orders').insert({
-    order_code,
+    ordercode: order_code,
     name,
     email,
     phone,
@@ -29,10 +29,7 @@ export default async function handler(req, res) {
   })
 
   if (error) {
-    console.error('[create-order] Supabase error code:', error.code)
-    console.error('[create-order] Supabase error message:', error.message)
-    console.error('[create-order] Supabase error details:', error.details)
-    console.error('[create-order] Supabase error hint:', error.hint)
+    console.error('[create-order] Supabase error:', error.message)
     return res.status(500).json({ error: 'Không thể tạo đơn hàng', detail: error.message })
   }
 

@@ -66,7 +66,7 @@ export default async function handler(req, res) {
   const { data: order } = await supabase
     .from('orders')
     .select('*')
-    .eq('order_code', order_code)
+    .eq('ordercode', order_code)
     .eq('status', 'pending')
     .single()
 
@@ -103,7 +103,7 @@ export default async function handler(req, res) {
   })
 
   // Đánh dấu hoàn thành
-  await supabase.from('orders').update({ status: 'completed' }).eq('order_code', order_code)
+  await supabase.from('orders').update({ status: 'completed' }).eq('ordercode', order_code)
 
   console.log('[payment-webhook] Hoàn thành:', order_code, order.email)
   return res.status(200).json({ ok: true })
