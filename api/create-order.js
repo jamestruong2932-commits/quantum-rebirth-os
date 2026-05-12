@@ -29,8 +29,11 @@ export default async function handler(req, res) {
   })
 
   if (error) {
-    console.error('[create-order] Supabase error:', error)
-    return res.status(500).json({ error: 'Không thể tạo đơn hàng' })
+    console.error('[create-order] Supabase error code:', error.code)
+    console.error('[create-order] Supabase error message:', error.message)
+    console.error('[create-order] Supabase error details:', error.details)
+    console.error('[create-order] Supabase error hint:', error.hint)
+    return res.status(500).json({ error: 'Không thể tạo đơn hàng', detail: error.message })
   }
 
   console.log('[create-order] Đơn mới:', order_code, email)
