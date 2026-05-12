@@ -21,7 +21,7 @@ export default async function handler(req, res) {
   const order_code = `QT-${Date.now()}`
 
   const { error } = await supabase.from('orders').insert({
-    ordercode: order_code,
+    order_code,
     name,
     email,
     phone,
