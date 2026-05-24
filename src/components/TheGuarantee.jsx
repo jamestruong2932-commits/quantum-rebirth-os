@@ -40,7 +40,7 @@ const BARRIERS = [
       },
       {
         label: 'BẰNG CHỨNG VẬT LÝ',
-        body: 'Lần chốt đơn hàng 17 triệu của tôi xảy ra khi tôi dừng lại. Không phải khi tôi gửi thêm tin nhắn. Không phải khi tôi theo dõi thêm. Khi tôi dừng lại — thực hiện kỹ thuật Đồng bộ Tim-Não, rút hệ thần kinh ra khỏi chế độ Sinh tồn — và gửi đúng một tin nhắn từ trạng thái đủ đầy tuyệt đối. Đó là lần đầu tiên tôi hiểu: không phải nội dung tin nhắn thay đổi. Người gửi tin nhắn thay đổi. Và người đó khi đó là nhân viên mới, lương chưa đủ trả tiền nhà.',
+        body: 'Lần chốt đơn hàng 27 triệu của tôi xảy ra khi tôi dừng lại. Không phải khi tôi gửi thêm tin nhắn. Không phải khi tôi theo dõi thêm. Khi tôi dừng lại — thực hiện kỹ thuật Đồng bộ Tim-Não, rút hệ thần kinh ra khỏi chế độ Sinh tồn — và gửi đúng một tin nhắn từ trạng thái đủ đầy tuyệt đối. Đó là lần đầu tiên tôi hiểu: không phải nội dung tin nhắn thay đổi. Người gửi tin nhắn thay đổi. Và người đó khi đó là nhân viên mới, lương chưa đủ trả tiền nhà.',
         closing: 'Nếu trạng thái không gồng mình có thể tạo ra đòn bẩy đó trong hoàn cảnh đó — câu hỏi duy nhất là: bạn sẵn sàng thử chưa?',
       },
     ],

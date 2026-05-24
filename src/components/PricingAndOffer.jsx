@@ -58,7 +58,14 @@ const VALUE_ITEMS = [
     icon: '★',
     label: 'Bonus 3 — Độc quyền',
     name: 'The Reality Architect Protocol',
-    desc: 'Nếu Quantum Rebirth OS là việc quét sạch virus và cài lại hệ điều hành — thì đây là phần mềm ứng dụng tối thượng để bạn bắt đầu thực sự kiến tạo tài chính, mối quan hệ và sự nghiệp. Chương trình Neuro-hacking chuyên sâu 4 tầng — được thiết kế để nâng cấp "tải trọng" của hệ thần kinh, thu hẹp khoảng cách giữa suy nghĩ và vật chất.',
+    subtitle: 'Giao Thức Kiến Trúc Sư Thực Tại: Nghệ Thuật Thao Túng Vật Chất Bằng Hệ Thần Kinh',
+    desc: 'Đừng vẽ bảng tầm nhìn nữa. Hãy xây dựng một Hệ Thần Kinh có khả năng chịu tải được sự thịnh vượng.',
+    introLines: [
+      'Hầu hết các khóa học về Luật Hấp Dẫn thất bại vì một lý do duy nhất: Họ dạy bạn mơ mộng (Hallucination) thay vì kiến tạo (Creation). Họ bắt bạn hình dung về triệu đô — trong khi bộ não của bạn thậm chí không thể duy trì sự tập trung thuần khiết vào một đồng xu quá 3 giây mà không bị xao nhãng.',
+      'Bạn không thể vận hành một động cơ 1.000 mã lực bằng hệ thống điện được thiết kế cho bóng đèn 40W.',
+      'The Reality Architect Protocol không phải là khóa học tư duy tích cực. Đây là chương trình huấn luyện Neuro-hacking chuyên sâu — được thiết kế để nâng cấp "tải trọng" của hệ thần kinh, giúp bạn thu hẹp khoảng cách giữa suy nghĩ và vật chất.',
+      'Bên trong Giao thức này, chúng ta thực hiện cuộc cách mạng vi mô qua 4 tầng:',
+    ],
     value: '999.000đ',
     accent: '#D97706',
     isStar: true,
@@ -69,23 +76,48 @@ const BONUS3_TIERS = [
   {
     name: 'Tầng 1 — Làm Chủ Cờ Tàn',
     sub: 'The Endgame',
-    desc: 'Luyện tập vi mô với các đối tượng vật lý để đạt 5 giây tập trung thuần khiết không gián đoạn — đủ để "sụp đổ hàm sóng" và chọn một thực tại cụ thể từ vô số khả năng đang tồn tại đồng thời.',
+    desc: [
+      'Quên đi những mục tiêu khổng lồ đang gây áp lực cho hệ viền.',
+      'Chúng ta bắt đầu bằng nguyên lý Thu hẹp Vòng tròn — luyện tập với các đối tượng vật lý vi mô: một đồng xu, một ngọn nến, một hòn đá nhỏ — để đạt được 5 giây tập trung thuần khiết không gián đoạn.',
+      'Khi bạn làm chủ được 5 giây đó — khi ý thức của bạn có thể giữ nguyên một hình ảnh mà không có bất kỳ suy nghĩ ngoại lai nào xen vào — bạn đã làm chủ được Trường Lượng Tử.',
+      'Vì 5 giây tập trung thuần khiết là đủ để "sụp đổ hàm sóng" — để chọn một thực tại cụ thể từ vô số khả năng đang tồn tại đồng thời.',
+    ],
   },
   {
     name: 'Tầng 2 — Xây Dựng Vùng Mềm',
     sub: 'The Soft Zone',
-    desc: 'Học cách hấp thụ mọi sự hỗn loạn bên ngoài để làm nhiên liệu cho ý định. Hành động không có ma sát — như nước chảy quanh chướng ngại vật mà vẫn đến đích. Đây là nguyên lý của Vô Vi thực sự.',
+    desc: [
+      'Thay vì gồng mình chống lại tiếng ồn hay sự phân tâm, bạn sẽ học cách hấp thụ mọi sự hỗn loạn của thế giới bên ngoài để làm nhiên liệu cho ý định.',
+      'Đây là nguyên lý của Vô Vi — không phải không làm gì, mà là hành động không có ma sát.',
+      'Như nước không chống lại chướng ngại vật — nó chảy quanh nó, dưới nó, qua nó — và vẫn đến được đích.',
+    ],
   },
   {
     name: 'Tầng 3 — Mã Hóa Giác Quan 5D',
     sub: 'Sensory Stacking',
-    desc: 'Nâng từ "phim 2D trong tâm trí" sang "thực tế ảo 5D" — kích hoạt đủ 5 giác quan để hệ thống hóa học cơ thể phản ứng như thể trải nghiệm đó đang xảy ra ngay lúc này. Dopamine, Serotonin, Oxytocin được sản xuất. Biểu sinh học thay đổi. Cơ thể bắt đầu tin rằng tương lai đã xảy ra.',
+    desc: [
+      'Đây là nơi chúng ta nâng tầm từ "phim 2D trong tâm trí" sang "thực tế ảo 5D".',
+      'Kỹ thuật Sensory Stacking dạy bạn không chỉ nhìn thấy tương lai — mà còn nghe thấy, ngửi thấy, chạm vào, nếm được.',
+      'Khi bạn kích hoạt đủ 5 giác quan trong thiền định, hệ thống hóa học của cơ thể bắt đầu phản ứng như thể những trải nghiệm đó đang xảy ra ngay lúc này. Các tế bào thần kinh gương (Mirror Neurons) kích hoạt. Dopamine, Serotonin, Oxytocin được sản xuất. Biểu sinh học thay đổi.',
+      'Cơ thể của bạn bắt đầu tin rằng tương lai đã xảy ra. Và khi cơ thể tin — thực tại buộc phải theo.',
+    ],
   },
   {
     name: 'Tầng 4 — Chữ Ký Cảm Xúc',
     sub: 'Emotional Signature & Surrender',
-    desc: 'Bước mà hầu hết mọi người bỏ qua và vì thế mọi thứ sụp đổ — kỹ thuật gieo ý định vào Trường Thống Nhất và lùi lại để thực tại tự sắp xếp. Vì sự kiểm soát ám ảnh chính là bằng chứng bạn chưa thực sự là người đó. Người đã có điều đó rồi không cần phải kiểm soát nó.',
+    desc: [
+      'Sau khi bạn đã tạo ra hình ảnh 5D và đưa nó vào cơ thể, đây là bước mà hầu hết mọi người bỏ qua — và vì thế mọi thứ sụp đổ: Nhả bỏ (Surrender).',
+      'Không phải từ bỏ. Mà là tin tưởng đủ để dừng việc kiểm soát.',
+      'Vishen Lakhiani gọi đây là sự khác biệt giữa Có và Cho phép.',
+      'Bạn học cách gieo ý định vào Trường Thống Nhất và sau đó lùi lại — để thực tại tự sắp xếp xung quanh nhân dạng mới. Vì sự kiểm soát ám ảnh chính là bằng chứng rằng bạn chưa thực sự là người đó. Người đã có điều đó rồi không cần phải kiểm soát nó.',
+    ],
   },
+]
+
+const BONUS3_CONCLUSION = [
+  'Nếu Quantum Rebirth OS là việc quét sạch virus và cài lại hệ điều hành — thì The Reality Architect Protocol là phần mềm ứng dụng tối thượng để bạn bắt đầu thực sự kiến tạo tài chính, mối quan hệ và sự nghiệp.',
+  'Bạn sẽ không còn là khán giả đứng nhìn cuộc đời mình trôi qua.',
+  'Bạn trở thành Kiến Trúc Sư — người nắm giữ bản vẽ và có đủ năng lực thần kinh để biến bản vẽ đó thành vật chất thực tại.',
 ]
 
 const TABLE_ROWS = [
@@ -128,10 +160,10 @@ function ValueCard({ item, inView, delay }) {
       <div style={{ flex: 1 }}>
         <p style={{
           fontFamily: '"Inter", sans-serif',
-          fontSize: '10px',
+          fontSize: '9px',
           fontWeight: 600,
           letterSpacing: '3px',
-          color: `${item.accent}99`,
+          color: item.accent,
           marginBottom: '8px',
         }}>
           {item.label}
@@ -148,8 +180,8 @@ function ValueCard({ item, inView, delay }) {
         </p>
         <p style={{
           fontFamily: '"Inter", sans-serif',
-          fontSize: '16px',
-          lineHeight: 2.1,
+          fontSize: '14px',
+          lineHeight: 2.0,
           color: 'rgba(226,232,240,0.88)',
           fontWeight: 300,
           marginBottom: '14px',
@@ -193,10 +225,10 @@ function Bonus3Card({ item, inView, delay }) {
         <div style={{ flex: 1 }}>
           <p style={{
             fontFamily: '"Inter", sans-serif',
-            fontSize: '10px',
+            fontSize: '9px',
             fontWeight: 600,
             letterSpacing: '3px',
-            color: `${item.accent}99`,
+            color: item.accent,
             marginBottom: '8px',
           }}>
             {item.label}
@@ -211,16 +243,47 @@ function Bonus3Card({ item, inView, delay }) {
           }}>
             {item.name}
           </p>
+          {/* Subtitle */}
+          {item.subtitle && (
+            <p style={{
+              fontFamily: '"Inter", sans-serif',
+              fontSize: '11px',
+              fontWeight: 400,
+              color: `${item.accent}99`,
+              marginBottom: '16px',
+              fontStyle: 'italic',
+              letterSpacing: '0.3px',
+            }}>
+              {item.subtitle}
+            </p>
+          )}
+
+          {/* Main hook line */}
           <p style={{
-            fontFamily: '"Inter", sans-serif',
-            fontSize: '16px',
-            lineHeight: 2.1,
-            color: 'rgba(226,232,240,0.88)',
-            fontWeight: 300,
+            fontFamily: '"Playfair Display", serif',
+            fontSize: 'clamp(15px, 1.4vw, 18px)',
+            fontWeight: 500,
+            fontStyle: 'italic',
+            lineHeight: 1.7,
+            color: '#D8DCE6',
             marginBottom: '20px',
           }}>
             {item.desc}
           </p>
+
+          {/* Intro paragraphs */}
+          {item.introLines && item.introLines.map((line, idx) => (
+            <p key={idx} style={{
+              fontFamily: '"Inter", sans-serif',
+              fontSize: '14px',
+              lineHeight: 2.0,
+              color: 'rgba(226,232,240,0.88)',
+              fontWeight: 300,
+              marginBottom: idx < item.introLines.length - 1 ? '14px' : '20px',
+            }}>
+              {line}
+            </p>
+          ))}
 
           {/* Expand/Collapse button */}
           <button
@@ -268,7 +331,7 @@ function Bonus3Card({ item, inView, delay }) {
                   marginTop: '24px',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '20px',
+                  gap: '24px',
                   paddingTop: '24px',
                   borderTop: '1px solid rgba(217,119,6,0.12)',
                 }}>
@@ -295,21 +358,67 @@ function Bonus3Card({ item, inView, delay }) {
                         color: 'rgba(217,119,6,0.55)',
                         textTransform: 'uppercase',
                         fontStyle: 'italic',
-                        marginBottom: '8px',
+                        marginBottom: '10px',
                       }}>
                         {tier.sub}
                       </p>
-                      <p style={{
+                      {Array.isArray(tier.desc)
+                        ? tier.desc.map((line, j) => (
+                            <p key={j} style={{
+                              fontFamily: '"Inter", sans-serif',
+                              fontSize: '15px',
+                              lineHeight: 1.9,
+                              color: 'rgba(203,213,225,0.80)',
+                              fontWeight: 300,
+                              marginBottom: j < tier.desc.length - 1 ? '10px' : 0,
+                            }}>
+                              {line}
+                            </p>
+                          ))
+                        : (
+                            <p style={{
+                              fontFamily: '"Inter", sans-serif',
+                              fontSize: '15px',
+                              lineHeight: 1.9,
+                              color: 'rgba(203,213,225,0.80)',
+                              fontWeight: 300,
+                            }}>
+                              {tier.desc}
+                            </p>
+                          )
+                      }
+                    </div>
+                  ))}
+
+                  {/* Conclusion */}
+                  <div style={{
+                    paddingTop: '20px',
+                    borderTop: '1px solid rgba(217,119,6,0.10)',
+                  }}>
+                    <p style={{
+                      fontFamily: '"Inter", sans-serif',
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      letterSpacing: '2.5px',
+                      textTransform: 'uppercase',
+                      color: 'rgba(217,119,6,0.70)',
+                      marginBottom: '14px',
+                    }}>
+                      Tại sao Bonus này là mảnh ghép còn thiếu của bạn?
+                    </p>
+                    {BONUS3_CONCLUSION.map((line, i) => (
+                      <p key={i} style={{
                         fontFamily: '"Inter", sans-serif',
                         fontSize: '15px',
                         lineHeight: 1.9,
                         color: 'rgba(203,213,225,0.80)',
                         fontWeight: 300,
+                        marginBottom: i < BONUS3_CONCLUSION.length - 1 ? '10px' : 0,
                       }}>
-                        {tier.desc}
+                        {line}
                       </p>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             )}
