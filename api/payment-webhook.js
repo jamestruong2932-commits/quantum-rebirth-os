@@ -17,13 +17,9 @@ function readRawBody(req) {
   })
 }
 
-function verifyHmac(rawBody, signature, secret) {
-  const computed = crypto
-    .createHmac('sha256', secret)
-    .update(rawBody, 'utf8')
-    .digest('hex')
+function verifyToken(signature, secret) {
   try {
-    return crypto.timingSafeEqual(Buffer.from(computed), Buffer.from(signature))
+    return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(secret))
   } catch {
     return false
   }
@@ -38,7 +34,7 @@ export default async function handler(req, res) {
   const rawBody = await readRawBody(req)
 
   const signature = req.headers['x-webhook-token'] || req.headers['x-api-key'] || ''
-  if (!signature || !verifyHmac(rawBody, signature, secret)) {
+  if (!signature || !verifyToken(signature, secret)) {
     return res.status(401).json({ error: 'Invalid signature' })
   }
 

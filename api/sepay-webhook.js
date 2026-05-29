@@ -1,6 +1,12 @@
 import crypto from 'crypto'
+import { createClient } from '@supabase/supabase-js'
 
 export const config = { api: { bodyParser: false } }
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+)
 
 function readRawBody(req) {
   return new Promise((resolve, reject) => {
@@ -11,12 +17,17 @@ function readRawBody(req) {
   })
 }
 
-function verifyHmac(rawBody, signature, secret) {
-  const computed = crypto
-    .createHmac('sha256', secret)
-    .update(rawBody, 'utf8')
-    .digest('hex')
-  return crypto.timingSafeEqual(Buffer.from(computed), Buffer.from(signature))
+function safeEqual(a, b) {
+  try { return crypto.timingSafeEqual(Buffer.from(a), Buffer.from(b)) } catch { return false }
+}
+
+function verifySignature(rawBody, signature, secret, timestamp) {
+  return [
+    crypto.createHmac('sha256', secret).update(rawBody, 'utf8').digest('hex'),
+    crypto.createHmac('sha256', secret).update(rawBody, 'utf8').digest('base64'),
+    crypto.createHmac('sha256', secret).update(timestamp + rawBody, 'utf8').digest('hex'),
+    crypto.createHmac('sha256', secret).update(timestamp + '.' + rawBody, 'utf8').digest('hex'),
+  ].some(c => safeEqual(c, signature))
 }
 
 export default async function handler(req, res) {
@@ -27,9 +38,11 @@ export default async function handler(req, res) {
 
   const rawBody = await readRawBody(req)
 
-  // SePay gửi chữ ký trong header X-Webhook-Token
-  const signature = req.headers['x-webhook-token'] || req.headers['x-api-key']
-  if (!signature || !verifyHmac(rawBody, signature, secret)) {
+  const rawSig   = req.headers['x-sepay-signature'] || ''
+  const timestamp = req.headers['x-sepay-timestamp'] || ''
+  // SePay gửi dạng "sha256=<hex>" — strip prefix trước khi verify
+  const signature = rawSig.startsWith('sha256=') ? rawSig.slice(7) : rawSig
+  if (!signature || !verifySignature(rawBody, signature, secret, timestamp)) {
     return res.status(401).json({ error: 'Invalid signature' })
   }
 
@@ -40,25 +53,58 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid JSON' })
   }
 
-  // Chỉ xử lý giao dịch tiền vào
-  if (payload.transferType !== 'in') return res.status(200).json({ ok: true })
+  const type    = payload.transferType || ''
+  const amount  = Number(payload.transferAmount || 0)
+  const content = payload.content || payload.description || ''
 
-  const content = (payload.content || '').toUpperCase()
-  const amount  = Number(payload.transferAmount)
+  if (type !== 'in') return res.status(200).json({ ok: true })
 
-  // Kiểm tra đúng nội dung CK (bắt đầu bằng QUANTUM) và số tiền
-  const EXPECTED_AMOUNT = 1790000
-  const phoneMatch = content.match(/QUANTUM\s*(\d{9,11})/)
-
-  if (!phoneMatch || amount !== EXPECTED_AMOUNT) {
-    // Không phải đơn hàng của mình — bỏ qua, vẫn trả 200 cho SePay
+  const codeMatch = content.match(/QT-?(\d+)/)
+  if (!codeMatch || amount !== 1790000) {
     return res.status(200).json({ ok: true, skipped: true })
   }
 
-  const phone = phoneMatch[1]
-  console.log('[SePay] Xác nhận thanh toán — SĐT:', phone, '| Số tiền:', amount)
+  const order_code = `QT-${codeMatch[1]}`
 
-  // TODO: tạo tài khoản Supabase + gửi email (Bước tiếp theo)
+  const { data: order } = await supabase
+    .from('orders')
+    .select('*')
+    .eq('order_code', order_code)
+    .eq('status', 'pending')
+    .single()
 
-  return res.status(200).json({ ok: true, phone })
+  if (!order) return res.status(200).json({ ok: true, idempotent: true })
+
+  const password = crypto.randomBytes(5).toString('hex')
+  const { error: authError } = await supabase.auth.admin.createUser({
+    email: order.email,
+    password,
+    email_confirm: true,
+  })
+  if (authError && authError.message !== 'User already registered') {
+    console.error('[sepay-webhook] createUser error:', authError)
+    return res.status(500).json({ error: 'Không thể tạo tài khoản' })
+  }
+
+  await fetch('https://connect.mailerlite.com/api/subscribers', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.MAILERLITE_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: order.email,
+      fields: {
+        name:      order.name,
+        password,
+        login_url: process.env.COURSE_LOGIN_URL,
+      },
+      groups: [process.env.ML_GROUP_BUYERS],
+    }),
+  })
+
+  await supabase.from('orders').update({ status: 'completed' }).eq('order_code', order_code)
+
+  console.log('[sepay-webhook] Hoàn thành:', order_code, order.email)
+  return res.status(200).json({ ok: true })
 }
