@@ -289,7 +289,9 @@ function VSLEmbed() {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              background: 'linear-gradient(160deg, #0C1525 0%, #040810 100%)',
+              backgroundImage: 'url("https://img.youtube.com/vi/v5BaUdMSaPA/maxresdefault.jpg")',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
             }}
           >
             {/* Noise texture */}
@@ -349,41 +351,22 @@ function VSLEmbed() {
                 </svg>
               </motion.span>
 
-              <span
-                style={{
-                  fontFamily: '"Inter", sans-serif',
-                  fontSize: '11px',
-                  letterSpacing: '3px',
-                  textTransform: 'uppercase',
-                  color: 'rgba(0,212,192,0.55)',
-                }}
-              >
-                Xem Video · 16 phút
-              </span>
             </button>
           </div>
         ) : (
-          <div
+          <iframe
+            src="https://www.youtube.com/embed/v5BaUdMSaPA?autoplay=1&rel=0&modestbranding=1"
+            title="Quantum Rebirth OS VSL"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
             style={{
               position: 'absolute',
               inset: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: '#04070F',
+              width: '100%',
+              height: '100%',
+              border: 'none',
             }}
-          >
-            <p
-              style={{
-                fontFamily: '"Inter", sans-serif',
-                fontSize: '12px',
-                letterSpacing: '3px',
-                color: 'rgba(0,212,192,0.45)',
-              }}
-            >
-              VIDEO ĐANG TẢI...
-            </p>
-          </div>
+          />
         )}
       </div>
 
@@ -406,7 +389,7 @@ function VSLEmbed() {
           marginRight: 'auto',
         }}
       >
-        Video này dài 16 phút. Hãy xem toàn bộ trước khi đọc tiếp — nội dung
+        Video này dài 23 phút. Hãy xem toàn bộ trước khi đọc tiếp — nội dung
         phía dưới sẽ có ý nghĩa hoàn toàn khác sau khi bạn đã xem.
       </motion.p>
     </motion.div>
