@@ -147,10 +147,14 @@ Variables (Preview + Production), đã deploy thủ công.
 trực tiếp `sendMetaPurchase()` với dữ liệu giả + test_event_code, không đụng Supabase/
 MailerLite. Kết quả: `events_received: 1`, Meta xác nhận nhận đúng format. ✅
 
-**7. Còn cần làm — test thật cuối cùng trước khi chạy quảng cáo:**
-- [ ] Tạo 1 đơn giá trị nhỏ/thật, quét QR, chuyển khoản thật → chờ SePay gọi webhook thật
-      → vào Meta Events Manager → Test Events → xác nhận `Purchase` fire đúng 1 lần, đúng
-      value, đúng `order_code`.
+**7. Test thật — đã thực hiện ✅**
+Đã chuyển khoản thật 1.790.000 VND qua QR trên trang, chờ SePay gọi webhook thật →
+kiểm tra Meta Events Manager → tab Test Events:
+- `Purchase` fire đúng **1 lần** — không bắn trùng.
+- `value` đúng **1.790.000 VND**, đúng `currency`.
+Funnel webhook → Supabase → Meta CAPI hoạt động đúng trên production.
+
+**8. Còn cần làm trước khi chạy quảng cáo:**
 - [ ] Cài Meta Pixel Helper (Chrome) → mở trang → xác nhận `PageView` (index.html) và
       `InitiateCheckout` (lúc vào Checkout.jsx) fire đúng lúc.
 - [ ] Xác nhận với đội portal rằng Pixel ID `37029946209982129` không bị trùng định nghĩa
