@@ -21,11 +21,11 @@ function normalizePhone(phone) {
  * Fired only after SePay webhook confirms payment (status: 'completed') —
  * never from the client, since the browser has no reliable "paid" signal.
  */
-export async function sendMetaPurchase({ email, phone, order_code }) {
+export async function sendMetaPurchase({ email, phone, order_code, testEventCode }) {
   const token = process.env.META_CAPI_ACCESS_TOKEN
   if (!token) {
     console.error('[meta-capi] Missing META_CAPI_ACCESS_TOKEN env var — Purchase event not sent')
-    return
+    return { ok: false, error: 'missing_token' }
   }
 
   try {
@@ -52,12 +52,15 @@ export async function sendMetaPurchase({ email, phone, order_code }) {
               content_type: 'product',
             },
           }],
+          ...(testEventCode ? { test_event_code: testEventCode } : {}),
         }),
       }
     )
     const data = await res.json()
     if (!res.ok) console.error('[meta-capi] Meta API error:', data)
+    return { ok: res.ok, data }
   } catch (err) {
     console.error('[meta-capi] Request failed:', err)
+    return { ok: false, error: String(err) }
   }
 }
