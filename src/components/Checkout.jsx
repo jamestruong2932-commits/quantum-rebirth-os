@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MagneticButton from './MagneticButton'
 
@@ -473,6 +473,10 @@ function CheckoutForm({ onSuccess }) {
 export default function Checkout({ onBack, onThankYou }) {
   const [orderInfo, setOrderInfo] = useState(null)
   const [showModal, setShowModal] = useState(false)
+
+  useEffect(() => {
+    window.fbq?.('track', 'InitiateCheckout', { value: BANK.amount, currency: 'VND' })
+  }, [])
 
   const handleSuccess = (info) => {
     setOrderInfo(info)

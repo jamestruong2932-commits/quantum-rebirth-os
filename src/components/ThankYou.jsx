@@ -20,6 +20,10 @@ export default function ThankYou({ name, email, phone, onBack }) {
     return () => clearInterval(id)
   }, [])
 
+  /* Purchase event is sent server-side (Meta Conversions API) from the SePay
+     webhook once payment is actually confirmed — not fired here, since this
+     screen shows before that confirmation happens. */
+
   const credentials = [
     { label: 'Email đăng nhập', value: email, highlight: true },
   ]

@@ -1,5 +1,6 @@
 import crypto from 'crypto'
 import { createClient } from '@supabase/supabase-js'
+import { sendMetaPurchase } from './_meta-capi.js'
 
 export const config = { api: { bodyParser: false } }
 
@@ -104,6 +105,8 @@ export default async function handler(req, res) {
   })
 
   await supabase.from('orders').update({ status: 'completed' }).eq('order_code', order_code)
+
+  await sendMetaPurchase({ email: order.email, phone: order.phone, order_code })
 
   console.log('[sepay-webhook] Hoàn thành:', order_code, order.email)
   return res.status(200).json({ ok: true })
