@@ -118,9 +118,10 @@ bẫy mục "Vì sao quan trọng" cảnh báo ở trên.
 
 Đã chuyển sang **server-side qua Meta Conversions API (CAPI)**:
 - File mới `api/_meta-capi.js` — hàm `sendMetaPurchase()`, hash SHA-256 email/phone theo
-  chuẩn Meta trước khi gửi.
-- Gọi tại `api/sepay-webhook.js` và `api/payment-webhook.js`, ngay sau dòng cập nhật
-  `orders.status = 'completed'` — đúng lúc SePay xác nhận đã nhận tiền qua webhook.
+  chuẩn Meta trước khi gửi. Hỗ trợ tham số optional `testEventCode` để test qua Meta Test
+  Events mà không ảnh hưởng dữ liệu tối ưu quảng cáo thật.
+- Gọi tại `api/sepay-webhook.js`, ngay sau dòng cập nhật `orders.status = 'completed'`
+  — đúng lúc SePay xác nhận đã nhận tiền qua webhook.
 - `value: 1790000`, `content_ids: [order_code]`, `event_id: order_code` (dedup nếu sau
   này bật thêm pixel client).
 - Chống bắn trùng: webhook chỉ xử lý đơn có `status='pending'`; nếu SePay gọi lại webhook
@@ -131,21 +132,26 @@ SePay phát hiện giao dịch khớp mã đơn (`QT-<timestamp>`) + đúng số
 server verify chữ ký HMAC → cập nhật Supabase `orders.status = 'completed'` → tạo tài
 khoản học viên → gửi email MailerLite → gửi `Purchase` lên Meta CAPI.
 
-Ghi chú kỹ thuật: hiện có **2 webhook handler gần như trùng nhau**
-(`api/sepay-webhook.js` và `api/payment-webhook.js`) — đã thêm CAPI vào cả hai vì chưa
-xác định chắc SePay dashboard đang trỏ endpoint nào. Cần đội vận hành xác nhận URL nào
-đang thật sự nhận webhook từ SePay để dọn bớt file dư thừa.
+**Dọn dẹp webhook trùng lặp:** đã xác nhận với SePay dashboard — webhook URL thật là
+`https://www.quantumrebirth.io.vn/api/sepay-webhook`. File `api/payment-webhook.js` (bản
+gần trùng lặp) đã bị xóa sau khi grep toàn repo xác nhận không có gì tham chiếu tới nó;
+lần duy nhất nó xuất hiện là trong `task.md` — một note cũ ghi webhook đó dự tính cho
+domain `youridentity.com.vn` và ghi rõ "Chưa cấu hình", tức chưa từng được gắn vào SePay
+dashboard nào. Giờ chỉ còn **1 đường dẫn duy nhất** xử lý webhook SePay + gửi Purchase
+qua Meta CAPI: `api/sepay-webhook.js`.
 
 **5. Token & deploy** — `META_CAPI_ACCESS_TOKEN` đã thêm vào Vercel Environment
-Variables, đã deploy thủ công.
+Variables (Preview + Production), đã deploy thủ công.
 
-**6. Còn cần làm để xác nhận hoạt động đúng:**
-- [ ] Tạo 1 đơn test, đi hết luồng quét QR → chờ SePay gọi webhook → kiểm tra Meta Events
-      Manager → tab Test Events → xác nhận `Purchase` fire đúng 1 lần, đúng giá trị, đúng
-      `order_code`.
-- [ ] Cài Meta Pixel Helper (Chrome) để verify `PageView` + `InitiateCheckout` fire đúng
-      lúc trên trình duyệt.
+**6. Test CAPI qua Meta Test Events (test_event_code `TEST40999`)** — đã chạy script gọi
+trực tiếp `sendMetaPurchase()` với dữ liệu giả + test_event_code, không đụng Supabase/
+MailerLite. Kết quả: `events_received: 1`, Meta xác nhận nhận đúng format. ✅
+
+**7. Còn cần làm — test thật cuối cùng trước khi chạy quảng cáo:**
+- [ ] Tạo 1 đơn giá trị nhỏ/thật, quét QR, chuyển khoản thật → chờ SePay gọi webhook thật
+      → vào Meta Events Manager → Test Events → xác nhận `Purchase` fire đúng 1 lần, đúng
+      value, đúng `order_code`.
+- [ ] Cài Meta Pixel Helper (Chrome) → mở trang → xác nhận `PageView` (index.html) và
+      `InitiateCheckout` (lúc vào Checkout.jsx) fire đúng lúc.
 - [ ] Xác nhận với đội portal rằng Pixel ID `37029946209982129` không bị trùng định nghĩa
       event giữa 2 funnel (site portal đã có Lead + InitiateCheckout riêng).
-- [ ] Xác nhận webhook endpoint nào (`sepay-webhook` hay `payment-webhook`) là endpoint
-      thật SePay đang gọi.
