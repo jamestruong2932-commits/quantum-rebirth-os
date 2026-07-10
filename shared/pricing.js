@@ -1,0 +1,1 @@
+export const PURCHASE_VALUE = 1790000

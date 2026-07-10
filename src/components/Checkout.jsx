@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MagneticButton from './MagneticButton'
+import { PURCHASE_VALUE } from '../../shared/pricing.js'
 
 const EASE = [0.22, 1, 0.36, 1]
 
@@ -17,7 +18,7 @@ const BANK = {
   name:   'MB Bank',
   number: '3329032000',
   owner:  'TRUONG CHIEN PHUOC',
-  amount: 1790000,
+  amount: PURCHASE_VALUE,
 }
 
 /* ── Validators ── */

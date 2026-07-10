@@ -1,7 +1,7 @@
 import crypto from 'crypto'
+import { PURCHASE_VALUE } from '../shared/pricing.js'
 
 const META_PIXEL_ID = '37029946209982129'
-const PURCHASE_VALUE = 1790000
 
 function sha256(value) {
   return crypto.createHash('sha256').update(value, 'utf8').digest('hex')

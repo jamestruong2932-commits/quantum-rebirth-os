@@ -1,6 +1,7 @@
 import crypto from 'crypto'
 import { createClient } from '@supabase/supabase-js'
 import { sendMetaPurchase } from './_meta-capi.js'
+import { PURCHASE_VALUE } from '../shared/pricing.js'
 
 export const config = { api: { bodyParser: false } }
 
@@ -61,17 +62,20 @@ export default async function handler(req, res) {
   if (type !== 'in') return res.status(200).json({ ok: true })
 
   const codeMatch = content.match(/QT-?(\d+)/)
-  if (!codeMatch || amount !== 1790000) {
+  if (!codeMatch || amount !== PURCHASE_VALUE) {
     return res.status(200).json({ ok: true, skipped: true })
   }
 
   const order_code = `QT-${codeMatch[1]}`
 
+  // Atomic conditional update làm bước đầu tiên — chặn 2 lần gọi webhook
+  // đồng thời (SePay retry) cùng vượt qua check pending trước khi có side effect.
   const { data: order } = await supabase
     .from('orders')
-    .select('*')
+    .update({ status: 'completed' })
     .eq('order_code', order_code)
     .eq('status', 'pending')
+    .select()
     .single()
 
   if (!order) return res.status(200).json({ ok: true, idempotent: true })
@@ -83,11 +87,13 @@ export default async function handler(req, res) {
     email_confirm: true,
   })
   if (authError && authError.message !== 'User already registered') {
-    console.error('[sepay-webhook] createUser error:', authError)
+    // Order đã bị đánh dấu 'completed' ở bước claim phía trên — báo lỗi rõ ràng
+    // để can thiệp thủ công thay vì im lặng bỏ qua một đơn đã thu tiền.
+    console.error('[sepay-webhook] CRITICAL createUser error, đơn đã completed nhưng chưa tạo được tài khoản:', order_code, order.email, authError)
     return res.status(500).json({ error: 'Không thể tạo tài khoản' })
   }
 
-  await fetch('https://connect.mailerlite.com/api/subscribers', {
+  const mlRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${process.env.MAILERLITE_API_KEY}`,
@@ -103,10 +109,15 @@ export default async function handler(req, res) {
       groups: [process.env.ML_GROUP_BUYERS],
     }),
   })
+  if (!mlRes.ok) {
+    const mlError = await mlRes.text().catch(() => '')
+    console.error('[sepay-webhook] CRITICAL MailerLite error, khách đã thanh toán nhưng chưa nhận được email đăng nhập:', order_code, order.email, mlRes.status, mlError)
+  }
 
-  await supabase.from('orders').update({ status: 'completed' }).eq('order_code', order_code)
-
-  await sendMetaPurchase({ email: order.email, phone: order.phone, order_code })
+  const capiResult = await sendMetaPurchase({ email: order.email, phone: order.phone, order_code })
+  if (!capiResult.ok) {
+    console.error('[sepay-webhook] Meta CAPI Purchase thất bại, mất event quảng cáo:', order_code, capiResult.error || capiResult.data)
+  }
 
   console.log('[sepay-webhook] Hoàn thành:', order_code, order.email)
   return res.status(200).json({ ok: true })
