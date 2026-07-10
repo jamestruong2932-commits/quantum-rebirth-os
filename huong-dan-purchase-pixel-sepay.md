@@ -154,8 +154,20 @@ kiểm tra Meta Events Manager → tab Test Events:
 - `value` đúng **1.790.000 VND**, đúng `currency`.
 Funnel webhook → Supabase → Meta CAPI hoạt động đúng trên production.
 
-**8. Còn cần làm trước khi chạy quảng cáo:**
-- [ ] Cài Meta Pixel Helper (Chrome) → mở trang → xác nhận `PageView` (index.html) và
-      `InitiateCheckout` (lúc vào Checkout.jsx) fire đúng lúc.
-- [ ] Xác nhận với đội portal rằng Pixel ID `37029946209982129` không bị trùng định nghĩa
-      event giữa 2 funnel (site portal đã có Lead + InitiateCheckout riêng).
+**8. Verify bằng Meta Pixel Helper — đã thực hiện ✅**
+Cài Meta Pixel Helper (Chrome), mở lại trang từ đầu, xác nhận `PageView` và
+`InitiateCheckout` đều gắn đúng Pixel ID `37029946209982129`. Lưu ý: Meta hiển thị số
+này dưới tên **"Dataset ID"** trong Pixel Helper/Events Manager bản mới (Meta đã đổi
+thuật ngữ "Pixel" → "Dataset") — cùng một pixel, không phải nhầm hay trùng ID khác.
+
+**9. Kết luận — funnel sẵn sàng chạy quảng cáo Meta:**
+- ✅ `PageView` (index.html), `InitiateCheckout` (Checkout.jsx), `Purchase` (server-side
+  CAPI trong sepay-webhook.js) — cùng dùng đúng 1 Pixel ID `37029946209982129`.
+- ✅ Đã test thật bằng 1 giao dịch chuyển khoản thật — `Purchase` fire đúng 1 lần, đúng
+  giá trị 1.790.000 VND.
+- ✅ Đã verify bằng Meta Pixel Helper trên trình duyệt thật.
+- ✅ Không còn webhook/route trùng lặp trong code — chỉ 1 đường dẫn duy nhất
+  (`api/sepay-webhook.js`) xử lý thanh toán + gửi Purchase.
+- Còn lại: xác nhận với đội portal rằng Pixel ID `37029946209982129` không bị trùng định
+  nghĩa event giữa 2 funnel (site portal đã có Lead + InitiateCheckout riêng) — việc phối
+  hợp giữa 2 team, không phải việc kỹ thuật trên repo này.
